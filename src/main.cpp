@@ -36,8 +36,8 @@ class $modify(MyMenuLayer, MenuLayer) {
     // Esta es la función que se activa cuando presionas el botón
     void onMyCustomButton(CCObject* sender) {
         FLAlertLayer::create(
-            "¡Hola!", 
-            "Has presionado tu botón personalizado de <cl>Geode</c>.", 
+            "¡Bienvenido!", 
+            "Este es el Stereo GDPS", 
             "OK"
         )->show();
     }
