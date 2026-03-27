@@ -1,58 +1,86 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
-#include <Geode/ui/GeodeUI.hpp> // Para interfaces más bonitas
 
 using namespace geode::prelude;
 
 class $modify(MyMenuLayer, MenuLayer) {
-    // ... tu código anterior de init() para crear el botón de InfoGDPS ...
+    bool init() {
+        if (!MenuLayer::init()) return false;
+
+        // Usamos un pequeño retraso para asegurar que Geode ya cargó sus botones
+        this->scheduleOnce(schedule_selector(MyMenuLayer::setupMenu), 0.1f);
+
+        return true;
+    }
+
+    void setupMenu(float dt) {
+        auto bottomMenu = this->getChildByID("bottom-menu");
+        if (!bottomMenu) return;
+
+        // 1. BORRAR EL BOTÓN DE GEODE
+        if (auto geodeBtn = bottomMenu->getChildByID("geode.loader/geode-button")) {
+            geodeBtn->removeFromParent();
+        }
+
+        // 2. AÑADIR TU BOTÓN PERSONALIZADO (InfoGDPS)
+        // Usamos CCSprite::create porque es tu propia imagen en resources
+        auto buttonSprite = CCSprite::create("info.png");
+        
+        // Seguridad: Si no encuentra tu imagen, usa una de auxilio
+        if (!buttonSprite) {
+            buttonSprite = CCSprite::createWithSpriteFrameName("GJ_infoIcon_001.png");
+        }
+
+        auto myButton = CCMenuItemSpriteExtra::create(
+            buttonSprite,
+            this,
+            menu_selector(MyMenuLayer::onMyCustomButton)
+        );
+        myButton->setID("InfoGDPS");
+
+        // Lo agregamos al menú
+        bottomMenu->addChild(myButton);
+
+        // 3. RECENTRAR TODO
+        bottomMenu->updateLayout();
+    }
+
+    // --- ACCIONES DE LOS BOTONES ---
 
     void onMyCustomButton(CCObject* sender) {
-        // 1. Creamos un mensaje con formato. 
-        // Usamos <d> para texto con más espacio y etiquetas de color.
         auto alert = FLAlertLayer::create(
             "Stereo GDPS - Info", 
             "Bienvenido a la comunidad oficial.\n"
             "<cg>Versión:</c> 1.0\n"
             "<cy>Estado:</c> Online\n\n"
-            "Aquí puedes encontrar niveles personalizados,\n"
-            "eventos semanales y una economía propia.\n"
-            "¡Gracias por ser parte de este proyecto!", 
-            "Cerrar" // Este es el botón de la izquierda (índice 0)
+            "Usa la flecha para ver más info...", 
+            "Cerrar"
         );
 
-        // 2. AÑADIR EL BOTÓN DE "SIGUIENTE"
-        // Buscamos el menú de botones de la alerta para meter el nuevo
-        if (auto buttonMenu = alert->m_buttonMenu) {
+        // Añadir flecha de "Siguiente" a la alerta
+        if (auto btnMenu = alert->m_buttonMenu) {
+            auto nextSpr = CCSprite::createWithSpriteFrameName("GJ_arrow01_001.png");
+            nextSpr->setScale(0.7f);
             
-            auto nextSprite = CCSprite::createWithSpriteFrameName("GJ_arrow01_001.png");
-            nextSprite->setScale(0.8f);
-
             auto nextBtn = CCMenuItemSpriteExtra::create(
-                nextSprite,
+                nextSpr,
                 this,
-                menu_selector(MyMenuLayer::onNextPage) // Función para la página 2
+                menu_selector(MyMenuLayer::onNextPage)
             );
-            
-            // Lo posicionamos a la derecha del botón "Cerrar"
-            nextBtn->setPosition({80, 0}); 
-            buttonMenu->addChild(nextBtn);
+            nextBtn->setPosition({80, 0});
+            btnMenu->addChild(nextBtn);
         }
-
         alert->show();
     }
 
-    // Función para la segunda página de información
     void onNextPage(CCObject* sender) {
-        // Cerramos la alerta anterior (opcional)
-        // Luego creamos la nueva página
         FLAlertLayer::create(
             "Reglas y Staff",
             "1. No usar hacks en niveles rated.\n"
             "2. Respetar a los demás usuarios.\n\n"
             "<cp>Admin:</cp> Lennyx\n"
             "<cb>Moderadores:</cb> Equipo Stereo",
-            "Volver"
+            "OK"
         )->show();
     }
 };
