@@ -46,7 +46,7 @@ class $modify(MyMenuLayer, MenuLayer) {
         // Reemplaza "https://discord.gg/tu-link" por tu invitación real
         // ============================================================
         
-        utils::web::openLinkInBrowser("https://discord.gg/tu-link");
+        utils::web::openLinkInBrowser("https://discord.gg/bzS2cmCGt4");
 
         // ============================================================
     }
