@@ -9,31 +9,39 @@ class $modify(MyMenuLayer, MenuLayer) {
 
         if (auto bottomMenu = this->getChildByID("bottom-menu")) {
             
-           
-            
-            auto buttonSprite = CCSprite::createWithSpriteFrameName("Info.png");
+            // --- AQUÍ ESTÁ EL CAMBIO ---
+            // Usamos CCSprite::create para cargar tu archivo "info.png" directamente
+            // desde la carpeta resources de tu mod.
+            // Asegúrate de que el nombre coincida (info.png o info.jpeg).
+            auto buttonSprite = CCSprite::create("info.png");
 
-            // 2. Crear el Botón (CCMenuItemSpriteExtra es el estándar de GD para que se hunda al tocarlo)
+            // SEGURIDAD: Si no encuentra tu imagen, usa una del juego para no crashar
+            if (!buttonSprite) {
+                FLAlertLayer::create("Error", "No se encontró resources/info.png", "OK")->show();
+                buttonSprite = CCSprite::createWithSpriteFrameName("GJ_plusBtn_001.png");
+            }
+            // -----------------------------
+
+            // 2. Crear el Botón con el estándar de GD
             auto myButton = CCMenuItemSpriteExtra::create(
                 buttonSprite,
                 this,
-                menu_selector(MyMenuLayer::onMyCustomButton) // La función que se ejecuta al picarle
+                menu_selector(MyMenuLayer::onMyCustomButton)
             );
 
-            // 3. Darle un ID único para que otros mods no se confundan
+            // 3. Darle un ID único
             myButton->setID("InfoGDPS");
 
             // 4. Agregarlo al menú de abajo
             bottomMenu->addChild(myButton);
 
-            // 5. IMPORTANTE: Recalcular el centro para que el nuevo botón quepa bien
+            // 5. Recalcular el centro
             bottomMenu->updateLayout();
         }
 
         return true;
     }
 
-    // Esta es la función que se activa cuando presionas el botón
     void onMyCustomButton(CCObject* sender) {
         FLAlertLayer::create(
             "¡Bienvenido!", 
