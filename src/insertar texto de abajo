@@ -1,0 +1,31 @@
+#include <Geode/Geode.hpp>
+#include <Geode/modify/MenuLayer.hpp>
+
+using namespace geode::prelude;
+
+class $modify(MyMenuLayer, MenuLayer) {
+    bool init() {
+        if (!MenuLayer::init()) return false;
+
+        auto winSize = CCDirector::get()->getWinSize();
+
+        auto label = CCLabelBMFont::create("datos robados con exito", "chatFont.fnt");
+        
+        label->setPosition({ winSize.width / 2, 20 });
+        label->setScale(0.7f);
+        label->setOpacity(0);
+        label->setColor({ 255, 100, 100 });
+        this->addChild(label, 100);
+
+        auto fadeIn = CCFadeIn::create(0.5f);
+        auto delay = CCDelayTime::create(2.5f);
+        auto fadeOut = CCFadeOut::create(0.5f);
+        auto remove = CCRemoveSelf::create(true);
+
+        auto sequence = CCSequence::create(fadeIn, delay, fadeOut, remove, nullptr);
+        
+        label->runAction(sequence);
+
+        return true;
+    }
+};
