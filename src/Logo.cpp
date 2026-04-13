@@ -7,26 +7,23 @@ class $modify(MyMenuLayer, MenuLayer) {
     bool init() {
         if (!MenuLayer::init()) return false;
 
-        // Cargamos el logo
-        auto logo = CCSprite::create("logo Stereo Dash.png");
+        // PRUEBA DE FUEGO: Usamos una imagen que ya trae el juego (el logo de Geode)
+        // Si esto aparece, el código está bien y el problema es tu archivo PNG.
+        auto logo = CCSprite::createWithSpriteFrameName("geode.loader/geode-logo-outline.png");
+        
+        // Si no tienes el logo de geode, intentamos con un botón de RobTop
+        if (!logo) {
+            logo = CCSprite::createWithSpriteFrameName("GJ_downloadsBtn_001.png");
+        }
 
         if (logo) {
-            auto mainTitle = this->getChildByID("main-title");
-
-            if (mainTitle) {
-                auto titlePos = mainTitle->getPosition();
-                auto titleSize = mainTitle->getContentSize();
-
-                // Alineamos debajo a la izquierda del título
-                logo->setAnchorPoint({0.0f, 0.5f}); 
-                logo->setPosition({titlePos.x - (titleSize.width / 2), titlePos.y - 40.0f});
-            }
-
-            logo->setScale(0.4f);
-            logo->setZOrder(100);
-            logo->setID("stereo-dash-logo");
-
+            auto winSize = CCDirector::get()->getWinSize();
+            logo->setPosition({winSize.width / 2, winSize.height / 2 + 50});
+            logo->setZOrder(1000);
+            logo->setID("test-logo-geode");
             this->addChild(logo);
+            
+            log::info("LOG: El logo de prueba se añadio correctamente");
         }
 
         return true;
