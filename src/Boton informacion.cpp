@@ -30,16 +30,23 @@ class $modify(MyMenuLayer, MenuLayer) {
         auto logo = CCSprite::create("logoStereoDash.png");
         if (logo) {
             logo->setID("stereo-logo");
-            logo->setScale(0.4f);
+            logo->setScale(0.65f);
             
             if (auto mainTitle = this->getChildByID("main-title")) {
                 auto titlePos = mainTitle->getPosition();
-                logo->setPosition({ titlePos.x, titlePos.y - 45.0f });
+                auto titleSize = mainTitle->getContentSize();
+                
+                float posX = titlePos.x - (titleSize.width / 2.0f);
+                float posY = titlePos.y - (titleSize.height / 2.0f) - 30.0f;
+                
+                logo->setAnchorPoint({0.0f, 1.0f});
+                logo->setPosition({ posX, posY });
             } else {
-                logo->setPosition({ winSize.width / 2, winSize.height * 0.75f });
+                logo->setAnchorPoint({0.0f, 1.0f});
+                logo->setPosition({ winSize.width * 0.1f, winSize.height * 0.85f });
             }
             
-            this->addChild(logo, 100);
+            this->addChild(logo, 150);
         }
 
         return true;
