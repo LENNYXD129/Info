@@ -46,3 +46,23 @@ class $modify(MyMenuLayer, MenuLayer) {
         // Hola
     }
 };
+
+auto winSize = CCDirector::get()->getWinSize();
+
+//
+auto logoStereo = CCSprite::create("logoStereoDash.png");
+
+if (logoStereo) {
+    logoStereo->setID("stereo-logo-final");
+    logoStereo->setScale(0.4f);
+    
+    //
+    //
+    logoStereo->setPosition({ winSize.width * 0.5f, winSize.height * 0.75f });
+    logoStereo->setZOrder(100);
+    
+    this->addChild(logoStereo);
+} else {
+    //
+    log::error("No se encontro la imagen del logo en los recursos");
+}
