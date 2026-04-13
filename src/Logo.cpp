@@ -7,19 +7,31 @@ class $modify(MyMenuLayer, MenuLayer) {
     bool init() {
         if (!MenuLayer::init()) return false;
 
-        auto winSize = CCDirector::get()->getWinSize();
-
-        auto logo = CCSprite::create("logoStereoDash.png");
-
-        if (logo) {
-            logo->setID("stereo-logo-main");
-            logo->setScale(0.5f);
+        //
+        auto topRightMenu = this->getChildByID("top-right-menu");
+        
+        if (topRightMenu) {
+            auto logo = CCSprite::create("logo Stereo Dash.png");
             
+            if (logo) {
+                logo->setID("stereo-logo");
+                logo->setScale(0.5f);
+                
+                // 
+                //
+                logo->setPosition({-60, 0}); 
+                
+                topRightMenu->addChild(logo);
+                topRightMenu->updateLayout();
+            }
+        } else {
             //
-            logo->setPosition({winSize.width * 0.70f, winSize.height * 0.85f});
-            logo->setZOrder(100);
-            
-            this->addChild(logo);
+            auto winSize = CCDirector::get()->getWinSize();
+            auto logo = CCSprite::create("logo Stereo Dash.png");
+            if (logo) {
+                logo->setPosition({winSize.width * 0.75f, winSize.height * 0.85f});
+                this->addChild(logo, 100);
+            }
         }
 
         return true;
