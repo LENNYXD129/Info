@@ -9,22 +9,17 @@ class $modify(MyMenuLayer, MenuLayer) {
 
         auto winSize = CCDirector::get()->getWinSize();
 
-        //
         auto logo = CCSprite::create("logoStereoDash.png");
 
-        //
-        if (!logo) {
-            logo = CCSprite::createWithSpriteFrameName("GJ_playBtn_001.png");
-        }
-
         if (logo) {
-            logo->setID("stereo-logo-fix");
+            logo->setID("stereo-logo-main");
             logo->setScale(0.5f);
             
             //
-            logo->setPosition({winSize.width * 0.72f, winSize.height * 0.82f});
+            logo->setPosition({winSize.width * 0.70f, winSize.height * 0.85f});
+            logo->setZOrder(100);
             
-            this->addChild(logo, 1000);
+            this->addChild(logo);
         }
 
         return true;
