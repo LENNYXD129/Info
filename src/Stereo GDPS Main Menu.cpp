@@ -52,7 +52,7 @@ class $modify(MyMenuLayer, MenuLayer) {
                 
                 //
                 //
-                float posY = titlePos.y - (titleSize.height / 2.0f) + 10.0f; 
+                float posY = titlePos.y - (titleSize.height / 2.0f) - 10.0f; 
                 
                 logo->setPosition({ posX, posY });
                 
