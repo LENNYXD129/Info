@@ -27,7 +27,7 @@ class $modify(MyMenuLayer, MenuLayer) {
             bottomMenu->updateLayout();
         }
 
-        auto logo = CCSprite::create("logo Stereo Dash.png");
+        auto logo = CCSprite::create("logoStereoDash.png");
         if (logo) {
             logo->setID("stereo-logo");
             logo->setScale(0.65f);
