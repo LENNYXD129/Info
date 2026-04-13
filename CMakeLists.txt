@@ -25,4 +25,7 @@ endif()
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 
 # Set up dependencies, resources, and link Geode.
-setup_geode_mod(${PROJECT_NAME})
+setup_geode_mod(${PROJECT_NAME}
+    RESOURCES
+        "logo Stereo Dash.png"
+)

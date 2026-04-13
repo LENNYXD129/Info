@@ -7,24 +7,26 @@ class $modify(MyMenuLayer, MenuLayer) {
     bool init() {
         if (!MenuLayer::init()) return false;
 
-        auto winSize = CCDirector::get()->getWinSize();
-
-        //
-        auto fullPath = CCFileUtils::get()->fullPathForFilename("logo Stereo Dash.png", false);
-        auto logo = CCSprite::create(fullPath.c_str());
+        // Cargamos el logo
+        auto logo = CCSprite::create("logo Stereo Dash.png");
 
         if (logo) {
-            logo->setID("stereo-logo-main");
-            logo->setScale(0.5f);
-            
-            //
-            logo->setPosition({winSize.width * 0.72f, winSize.height * 0.82f});
+            auto mainTitle = this->getChildByID("main-title");
+
+            if (mainTitle) {
+                auto titlePos = mainTitle->getPosition();
+                auto titleSize = mainTitle->getContentSize();
+
+                // Alineamos debajo a la izquierda del título
+                logo->setAnchorPoint({0.0f, 0.5f}); 
+                logo->setPosition({titlePos.x - (titleSize.width / 2), titlePos.y - 40.0f});
+            }
+
+            logo->setScale(0.4f);
             logo->setZOrder(100);
-            
+            logo->setID("stereo-dash-logo");
+
             this->addChild(logo);
-        } else {
-            //
-            log::error("No se encontro la imagen en la carpeta del juego: logo Stereo Dash.png");
         }
 
         return true;
