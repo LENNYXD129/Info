@@ -36,15 +36,15 @@ class $modify(MyMenuLayer, MenuLayer) {
                 auto titlePos = mainTitle->getPosition();
                 auto titleSize = mainTitle->getContentSize();
                 
-                //hola
-                float posX = titlePos.x - (titleSize.width / 2.0f) + (winSize.width * 0.05f);
-                float posY = titlePos.y - (titleSize.height / 2.0f) - 30.0f;
+                //
+                float posX = titlePos.x - (titleSize.width / 2.0f) + (winSize.width * 0.07f);
+                float posY = titlePos.y - (titleSize.height / 2.0f) - 5.0f;
                 
                 logo->setAnchorPoint({0.0f, 1.0f});
                 logo->setPosition({ posX, posY });
             } else {
                 logo->setAnchorPoint({0.0f, 1.0f});
-                logo->setPosition({ winSize.width * 0.1f, winSize.height * 0.85f });
+                logo->setPosition({ winSize.width * 0.15f, winSize.height * 0.80f });
             }
             
             this->addChild(logo, 150);
