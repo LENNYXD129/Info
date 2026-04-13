@@ -1,0 +1,28 @@
+#include <Geode/Geode.hpp>
+#include <Geode/modify/MenuLayer.hpp>
+
+using namespace geode::prelude;
+
+class $modify(MyMenuLayer, MenuLayer) {
+    bool init() {
+        if (!MenuLayer::init()) return false;
+
+        auto winSize = CCDirector::get()->getWinSize();
+
+        auto logo = CCSprite::create("logo Stereo Dash.png");
+        
+        if (logo) {
+            logo->setAnchorPoint({1.0f, 1.0f});
+            
+            logo->setPosition({winSize.width - 10.0f, winSize.height - 10.0f});
+            
+            logo->setScale(0.5f);
+            
+            logo->setID("stereo-dash-logo");
+
+            this->addChild(logo);
+        }
+
+        return true;
+    }
+};
