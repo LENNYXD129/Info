@@ -27,43 +27,26 @@ class $modify(MyMenuLayer, MenuLayer) {
             bottomMenu->updateLayout();
         }
 
-        auto logo = CCSprite::create("logoStereoDash.png");
+        auto logo = CCSprite::create("logo Stereo Dash.png");
         if (logo) {
             logo->setID("stereo-logo");
+            logo->setScale(0.65f);
             
-            //
-            logo->setScale(0.85f); 
-            
-            //
             if (auto mainTitle = this->getChildByID("main-title")) {
-                // Obtenemos su posición y tamaño
                 auto titlePos = mainTitle->getPosition();
                 auto titleSize = mainTitle->getContentSize();
                 
-                //
-                //
-                logo->setAnchorPoint({0.0f, 0.0f}); 
+                //>D
+                float posX = titlePos.x - (titleSize.width / 2.0f) + (winSize.width * 0.05f);
+                float posY = titlePos.y - (titleSize.height / 2.0f) - 30.0f;
                 
-                //
-                //
-                
-                //
-                float posX = titlePos.x - (titleSize.width / 2.0f); 
-                
-                //
-                //
-                float posY = titlePos.y - (titleSize.height / 2.0f) - 10.0f; 
-                
+                logo->setAnchorPoint({0.0f, 1.0f});
                 logo->setPosition({ posX, posY });
-                
             } else {
-                //
-                //
-                logo->setAnchorPoint({0.0f, 0.0f});
-                logo->setPosition({ winSize.width * 0.05f, winSize.height * 0.9f });
+                logo->setAnchorPoint({0.0f, 1.0f});
+                logo->setPosition({ winSize.width * 0.1f, winSize.height * 0.85f });
             }
             
-            //
             this->addChild(logo, 150);
         }
 
