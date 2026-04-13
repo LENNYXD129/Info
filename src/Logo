@@ -1,34 +1,26 @@
 #include <Geode/Geode.hpp>
-#include <Geode/modify/MenuLayer.hpp>
+#include <Geode/modify/CreatorLayer.hpp>
 
 using namespace geode::prelude;
 
-class $modify(MyMenuLayer, MenuLayer) {
+class $modify(MyCreatorLayer, CreatorLayer) {
     bool init() {
-        if (!MenuLayer::init()) return false;
+        if (!CreatorLayer::init()) return false;
 
         auto winSize = CCDirector::get()->getWinSize();
 
-        // Intentamos cargar la imagen
         auto logo = CCSprite::create("logoStereoDash.png");
-
-        //
-        //
         
         if (logo) {
             logo->setAnchorPoint({1.0f, 1.0f});
-            logo->setPosition({winSize.width - 10.f, winSize.height - 10.f});
-            logo->setScale(0.5f);
+            
+            logo->setPosition({winSize.width - 5.0f, winSize.height - 5.0f});
+            
+            logo->setScale(0.4f);
+            
             logo->setZOrder(100);
-            logo->setID("stereo-logo");
             
             this->addChild(logo);
-        } else {
-            //
-            //
-            auto placeholder = CCLayerColor::create({255, 0, 0, 255}, 20, 20);
-            placeholder->setPosition({winSize.width - 30.f, winSize.height - 30.f});
-            this->addChild(placeholder);
         }
 
         return true;
