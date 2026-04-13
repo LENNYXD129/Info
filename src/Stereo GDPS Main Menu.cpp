@@ -27,7 +27,7 @@ class $modify(MyMenuLayer, MenuLayer) {
             bottomMenu->updateLayout();
         }
 
-        auto logo = CCSprite::create("logoStereoDash.png");
+        auto logo = CCSprite::create("logo Stereo Dash.png");
         if (logo) {
             logo->setID("stereo-logo");
             logo->setScale(0.65f);
@@ -36,7 +36,8 @@ class $modify(MyMenuLayer, MenuLayer) {
                 auto titlePos = mainTitle->getPosition();
                 auto titleSize = mainTitle->getContentSize();
                 
-                float posX = titlePos.x - (titleSize.width / 2.0f);
+                //hola
+                float posX = titlePos.x - (titleSize.width / 2.0f) + (winSize.width * 0.05f);
                 float posY = titlePos.y - (titleSize.height / 2.0f) - 30.0f;
                 
                 logo->setAnchorPoint({0.0f, 1.0f});
