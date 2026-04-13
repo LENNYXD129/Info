@@ -9,18 +9,26 @@ class $modify(MyMenuLayer, MenuLayer) {
 
         auto winSize = CCDirector::get()->getWinSize();
 
-        auto logo = CCSprite::create("logo Stereo Dash.png");
+        // Intentamos cargar la imagen
+        auto logo = CCSprite::create("logoStereoDash.png");
+
+        //
+        //
         
         if (logo) {
             logo->setAnchorPoint({1.0f, 1.0f});
-            
-            logo->setPosition({winSize.width - 10.0f, winSize.height - 10.0f});
-            
+            logo->setPosition({winSize.width - 10.f, winSize.height - 10.f});
             logo->setScale(0.5f);
+            logo->setZOrder(100);
+            logo->setID("stereo-logo");
             
-            logo->setID("stereo-dash-logo");
-
             this->addChild(logo);
+        } else {
+            //
+            //
+            auto placeholder = CCLayerColor::create({255, 0, 0, 255}, 20, 20);
+            placeholder->setPosition({winSize.width - 30.f, winSize.height - 30.f});
+            this->addChild(placeholder);
         }
 
         return true;
